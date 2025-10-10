@@ -1,0 +1,228 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f9fafb;
+}
+
+.login-page {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left side */
+.login-left {
+  flex: 1;
+  background: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.logo h1 {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 30px;
+  max-width: 400px;
+  line-height: 1.4;
+}
+
+/* Masonry layout */
+.image-grid {
+  column-count: 3;        /* จำนวนคอลัมน์ (เพิ่ม/ลดได้) */
+  column-gap: 12px;       /* ระยะห่างระหว่างคอลัมน์ */
+  height: 100%;
+  overflow-y: auto;       /* เลื่อนขึ้นลง */
+  overflow-x: auto;       /* เลื่อนซ้ายขวา */
+  padding: 10px;
+}
+
+.img-box {
+  margin-bottom: 12px;    /* เว้นระยะห่างแนวตั้ง */
+  break-inside: avoid;    /* ไม่ให้ภาพโดนตัดครึ่ง */
+}
+
+.img-box img {
+  width: 100%;            /* ให้เต็มคอลัมน์ */
+  border-radius: 12px;
+  display: block;
+  object-fit: cover;
+}
+
+
+
+/* Right side */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.login-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,105,180,0.6), transparent 80%);
+  filter: blur(200px);
+  z-index: 0;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 350px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #374151;
+}
+
+.field input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.field input:focus {
+  border-color: #16a34a;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.3);
+}
+
+.forgot {
+  text-align: right;
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  display: block;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #000;
+}
+
+.signup-link {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.signup-link a {
+  color: #16a34a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  margin: 20px 0;
+  font-size: 12px;
+  color: #777;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 40%;
+  top: 50%;
+  background: #ddd;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}

@@ -1,0 +1,83 @@
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  /* ✅ ใช้ linear-gradient + image เพื่อกันโหลดไม่ทัน */
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("https://picsum.photos/1600/900?random=1") no-repeat center center / cover;
+
+  position: relative;
+}
+
+.register-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6); /* ✅ ฟิลเตอร์บางๆ */
+  backdrop-filter: blur(3px); /* ✅ ฟุ้งนิดๆ */
+}
+
+.register-box {
+  position: relative;
+  z-index: 1; /* ✅ ให้อยู่เหนือพื้นหลัง */
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  text-align: center;
+}
+
+
+.title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  text-align: left;
+}
+
+.field input, .field select {
+  margin-top: 6px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.field input:focus, .field select:focus {
+  border-color: #16a34a;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(22,163,74,0.3);
+}
+
+.btn-primary {
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-primary:hover {
+  background: #000;
+}

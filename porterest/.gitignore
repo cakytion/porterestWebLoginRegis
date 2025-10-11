@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

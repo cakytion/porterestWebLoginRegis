@@ -5,6 +5,18 @@ import GoogleIcon from "./assets/google.jpg";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  const handleGoogleLogin = async () => {
+    try {
+      // targets the backend
+      const response = await fetch("http://localhost:8080/auth/google/url");
+      const data = await response.json();
+      // redirect to google's sign-in page
+      window.location.href = data.url;
+    } catch (error) {
+      console.error("error fetching google auth url:", error);
+    }
+  };
+
   return (
     <div className="login-page">
       {/* ฝั่งซ้าย */}
@@ -16,16 +28,15 @@ export default function Login() {
         <p className="tagline">Login to the world of creativity</p>
 
         <div className="image-grid">
-        {[...Array(15)].map((_, i) => (
-          <div className="img-box" key={i}>
-            <img
-              src={`https://picsum.photos/300/${200 + (i % 5) * 40}?random=${i}`}
-              alt={`random-${i}`}
-            />
-          </div>
-        ))}
-      </div>
-
+          {[...Array(15)].map((_, i) => (
+            <div className="img-box" key={i}>
+              <img
+                src={`https://picsum.photos/300/${200 + (i % 5) * 40}?random=${i}`}
+                alt={`random-${i}`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ฝั่งขวา */}
@@ -42,8 +53,12 @@ export default function Login() {
               <label>Password</label>
               <input type="password" placeholder="********" />
             </div>
-            <a href="#" className="forgot">Forgot password?</a>
-            <button type="submit" className="btn-primary">Login</button>
+            <a href="#" className="forgot">
+              Forgot password?
+            </a>
+            <button type="submit" className="btn-primary">
+              Login
+            </button>
           </form>
 
           <p className="signup-link">
@@ -52,7 +67,7 @@ export default function Login() {
 
           <div className="divider">or</div>
 
-          <button className="google-btn">
+          <button className="google-btn" onClick={handleGoogleLogin}>
             <img src={GoogleIcon} alt="google" className="google-icon" />
             Sign in with Google
           </button>

@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@elysiajs/cookie": "^0.8.0",
     "@elysiajs/cors": "^1.4.0",
+    "arctic": "^3.7.0",
     "elysia": "^1.4.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

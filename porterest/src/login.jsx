@@ -8,7 +8,8 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     try {
       // targets the backend
-      const response = await fetch("http://localhost:8080/auth/google/url");
+      const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/auth/google/url`;
+      const response = await fetch(apiUrl);
       const data = await response.json();
       // redirect to google's sign-in page
       window.location.href = data.url;

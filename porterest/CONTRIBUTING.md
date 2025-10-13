@@ -14,6 +14,13 @@ This guide provides instructions for setting up the development environment.
 bun install
 ```
 
+## Environment Variables
+
+Before running the application, you must set up your environment variables. These are used to store sensitive information like API keys and secrets.
+
+1.  Create a copy of the example environment file.
+2.  Open the newly created `.env` file and fill in the required values.
+
 ## Running the Application
 
 You will need two separate terminals to run both the frontend and backend servers.

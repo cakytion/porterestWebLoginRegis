@@ -21,21 +21,22 @@ We will implement Google OAuth 2.0 using the following stack:
 
 ## Session Strategy
 
-The strategy can be seen in this flow:
+The authentication flow uses OAuth 2.0 Authorization Code flow with PKCE:
 
-1. **Frontend**: User clicks "Sign in with Google", redirecting to Google's OAuth screen.
-2. **Google**: User authenticates, grants permissions, and is redirected back to the backend with an authorization `code`.
-3. **Backend**: Receives the `code` at the `/auth/google/callback` endpoint.
-4. **Backend**: Sends the `code` to Google and receives an `id_token`.
-5. **Backend**: Decodes and validates the `id_token` and extract the user's Google profile.
-6. **Backend**: Uses the Google ID from the profile to query the Supabase database. If the user is new, a new record is created.
-7. **Backend**: Creates a session JWT for the user and sets it in a secure, `HttpOnly` cookie, then redirects the user to a frontend page.
+1. **Initiate**: Frontend requests authorization URL from backend. Backend creates and stores `state` and `code_verifier` in `HttpOnly` cookies. User redirect to the authorization URL.
+2. **Callback**: After Google authentication, the backend's callback endpoint (`/auth/google/callback`) validates `state` and `code` (using the `code_verifier`) for access token. Then fetch the user's Google profile.
+3. **Handle User**:
+   - **Existing User**: If the user's Google ID exists in the database, a session JWT is created and set in a `HttpOnly` cookie. The user is then redirected to the dashboard.
+   - **New User**: If the user is new, a temporary JWT is set in a cookie, and the user is redirected to a `/finish-signup` page to select their role. Then the user is saved into the database and a session JWT is created and stored, then redirect them to the dashboard.
 
 ## User Records
 
-Stored in Supabase database.
+Stored in a Supabase database across two main tables:
+
+- `users`: User account information.
+- `auth_identities`: Links a user in `users` table to their authentication identities.
 
 ## Redirect URIs
 
-- Development: `http://localhost:8080/auth/google/callback`
-- Production: `https://example-domain.com/auth/google/callback`
+- **Development**: `http://localhost:8080/auth/google/callback`
+- **Production**: `${BACKEND_URL}/auth/google/callback` (Configured via environment variables)

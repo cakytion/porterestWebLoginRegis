@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+import styles from "./Login.module.css";
 import Logo from "./assets/Logo.png";
 import GoogleIcon from "./assets/google.jpg";
 import { Link } from "react-router-dom";
@@ -19,18 +19,18 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
+    <div className={styles['login-page']}>
       {/* ฝั่งซ้าย */}
-      <div className="login-left">
-        <div className="logo">
+      <div className={styles['login-left']}>
+        <div className={styles['logo']}>
           <img src={Logo} alt="logo" />
           <h1>Porterest</h1>
         </div>
-        <p className="tagline">Login to the world of creativity</p>
+        <p className={styles['tagline']}>Login to the world of creativity</p>
 
-        <div className="image-grid">
+        <div className={styles['image-grid']}>
           {[...Array(15)].map((_, i) => (
-            <div className="img-box" key={i}>
+            <div className={styles['img-box']} key={i}>
               <img
                 src={`https://picsum.photos/300/${200 + (i % 5) * 40}?random=${i}`}
                 alt={`random-${i}`}
@@ -41,35 +41,35 @@ export default function Login() {
       </div>
 
       {/* ฝั่งขวา */}
-      <div className="login-right">
-        <div className="login-box">
-          <h2 className="title">Portable Interest</h2>
+      <div className={styles['login-right']}>
+        <div className={styles['login-box']}>
+          <h2 className={styles['title']}>Portable Interest</h2>
 
-          <form className="form">
-            <div className="field">
+          <form className={styles['form']}>
+            <div className={styles['field']}>
               <label>Email</label>
               <input type="email" placeholder="you@example.com" />
             </div>
-            <div className="field">
+            <div className={styles['field']}>
               <label>Password</label>
               <input type="password" placeholder="********" />
             </div>
-            <a href="#" className="forgot">
+            <a href="#" className={styles['forgot']}>
               Forgot password?
             </a>
-            <button type="submit" className="btn-primary">
+            <button type="submit" className={styles['btn-primary']}>
               Login
             </button>
           </form>
 
-          <p className="signup-link">
+          <p className={styles['signup-link']}>
             Don’t have an account? <Link to="/register">Sign Up</Link>
           </p>
 
-          <div className="divider">or</div>
+          <div className={styles['divider']}>or</div>
 
-          <button className="google-btn" onClick={handleGoogleLogin}>
-            <img src={GoogleIcon} alt="google" className="google-icon" />
+          <button className={styles['google-btn']} onClick={handleGoogleLogin}>
+            <img src={GoogleIcon} alt="google" className={styles['google-icon']} />
             Sign in with Google
           </button>
         </div>

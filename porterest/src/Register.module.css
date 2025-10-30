@@ -5,7 +5,7 @@
   height: 100vh;
 
   /* ✅ ใช้ linear-gradient + image เพื่อกันโหลดไม่ทัน */
-  background: 
+  background:
     linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
     url("https://picsum.photos/1600/900?random=1") no-repeat center center / cover;
 
@@ -31,7 +31,6 @@
   text-align: center;
 }
 
-
 .title {
   margin-bottom: 20px;
   font-size: 22px;
@@ -52,7 +51,8 @@
   text-align: left;
 }
 
-.field input, .field select {
+.field input,
+.field select {
   margin-top: 6px;
   padding: 10px 14px;
   border: 1px solid #d1d5db;
@@ -60,10 +60,11 @@
   font-size: 14px;
 }
 
-.field input:focus, .field select:focus {
+.field input:focus,
+.field select:focus {
   border-color: #16a34a;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(22,163,74,0.3);
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.3);
 }
 
 .btn-primary {

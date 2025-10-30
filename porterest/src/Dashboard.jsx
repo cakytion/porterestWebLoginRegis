@@ -49,8 +49,7 @@ export default function Dashboard() {
             <strong>Role:</strong> {user.role}
           </p>
           <p>
-            <strong>Joined:</strong>{" "}
-            {new Date(user.created_at).toLocaleDateString()}
+            <strong>Joined:</strong> {new Date(user.created_at).toLocaleDateString()}
           </p>
         </div>
       </div>

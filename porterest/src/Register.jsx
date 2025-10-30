@@ -9,29 +9,31 @@ export default function Register() {
         <h2>Welcome to Porterest</h2>
         <form className={styles["form"]}>
           <div className={styles["field"]}>
-            <label>Name</label>
-            <input type="text" placeholder="Your name" />
+            <label htmlFor="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
           </div>
           <div className={styles["field"]}>
-            <label>Email</label>
-            <input type="email" placeholder="you@example.com" />
+            <label htmlFor="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" />
           </div>
           <div className={styles["field"]}>
-            <label>Password</label>
-            <input type="password" placeholder="********" />
+            <label htmlFor="password">Password</label>
+            <input id="password" type="password" placeholder="********" />
           </div>
           <div className={styles["field"]}>
-            <label>Confirm Password</label>
-            <input type="password" placeholder="********" />
+            <label htmlFor="confirm-password">Confirm Password</label>
+            <input id="confirm-password" type="password" placeholder="********" />
           </div>
           <div className={styles["field"]}>
-            <label>Role</label>
-            <select>
+            <label htmlFor="role">Role</label>
+            <select id="role">
               <option>Student</option>
               <option>Viewer</option>
             </select>
           </div>
-          <button type="submit" className={styles["btn-primary"]}>Register</button>
+          <button type="submit" className={styles["btn-primary"]}>
+            Register
+          </button>
         </form>
 
         <p className={styles["signup-link"]}>

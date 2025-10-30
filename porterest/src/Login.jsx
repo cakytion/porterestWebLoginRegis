@@ -19,18 +19,18 @@ export default function Login() {
   };
 
   return (
-    <div className={styles['login-page']}>
+    <div className={styles["login-page"]}>
       {/* ฝั่งซ้าย */}
-      <div className={styles['login-left']}>
-        <div className={styles['logo']}>
+      <div className={styles["login-left"]}>
+        <div className={styles["logo"]}>
           <img src={Logo} alt="logo" />
           <h1>Porterest</h1>
         </div>
-        <p className={styles['tagline']}>Login to the world of creativity</p>
+        <p className={styles["tagline"]}>Login to the world of creativity</p>
 
-        <div className={styles['image-grid']}>
+        <div className={styles["image-grid"]}>
           {[...Array(15)].map((_, i) => (
-            <div className={styles['img-box']} key={i}>
+            <div className={styles["img-box"]} key={i}>
               <img
                 src={`https://picsum.photos/300/${200 + (i % 5) * 40}?random=${i}`}
                 alt={`random-${i}`}
@@ -41,35 +41,35 @@ export default function Login() {
       </div>
 
       {/* ฝั่งขวา */}
-      <div className={styles['login-right']}>
-        <div className={styles['login-box']}>
-          <h2 className={styles['title']}>Portable Interest</h2>
+      <div className={styles["login-right"]}>
+        <div className={styles["login-box"]}>
+          <h2 className={styles["title"]}>Portable Interest</h2>
 
-          <form className={styles['form']}>
-            <div className={styles['field']}>
+          <form className={styles["form"]}>
+            <div className={styles["field"]}>
               <label>Email</label>
               <input type="email" placeholder="you@example.com" />
             </div>
-            <div className={styles['field']}>
+            <div className={styles["field"]}>
               <label>Password</label>
               <input type="password" placeholder="********" />
             </div>
-            <a href="#" className={styles['forgot']}>
+            <a href="#" className={styles["forgot"]}>
               Forgot password?
             </a>
-            <button type="submit" className={styles['btn-primary']}>
+            <button type="submit" className={styles["btn-primary"]}>
               Login
             </button>
           </form>
 
-          <p className={styles['signup-link']}>
+          <p className={styles["signup-link"]}>
             Don’t have an account? <Link to="/register">Sign Up</Link>
           </p>
 
-          <div className={styles['divider']}>or</div>
+          <div className={styles["divider"]}>or</div>
 
-          <button className={styles['google-btn']} onClick={handleGoogleLogin}>
-            <img src={GoogleIcon} alt="google" className={styles['google-icon']} />
+          <button className={styles["google-btn"]} onClick={handleGoogleLogin}>
+            <img src={GoogleIcon} alt="google" className={styles["google-icon"]} />
             Sign in with Google
           </button>
         </div>

@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: cd porterest && bun install
+
+      - name: Run tests
+        run: cd porterest && bun run test
+
+      - name: Build
+        run: cd porterest && bun run build

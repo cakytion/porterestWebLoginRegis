@@ -40,3 +40,21 @@ To start the backend server:
 ```bash
 bun src/server.js
 ```
+
+## Testing
+
+All tests are located in the `tests/` directory. To run all tests: `bun run test`.
+
+### Frontend Tests
+
+- **Framework:** [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
+- **Location:** `tests/frontend/`
+- **Setup:** The test environment is configured in `vite.config.js`. The setup file is located at `tests/frontend/setup.js`.
+- **To Run:** `bun run test:frontend`
+
+### Backend Tests
+
+- **Framework:** [Bun's native test runner](https://bun.sh/docs/test/writing).
+- **Location:** `tests/backend/`
+- **Setup:** The setup file is located at `tests/backend/setup.js`.
+- **To Run:** `bun run test:backend`

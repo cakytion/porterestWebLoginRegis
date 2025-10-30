@@ -58,3 +58,39 @@ All tests are located in the `tests/` directory. To run all tests: `bun run test
 - **Location:** `tests/backend/`
 - **Setup:** The setup file is located at `tests/backend/setup.js`.
 - **To Run:** `bun run test:backend`
+
+## Code Quality
+
+This project uses [ESLint](https://eslint.org/) for code quality checks and [Prettier](https://prettier.io/) for consistent code formatting.
+
+### Linting
+
+Check for linting issues:
+
+```bash
+bun run lint
+```
+
+Automatically fix linting issues:
+
+```bash
+bun run lint:fix
+```
+
+### Formatting
+
+Check if files are formatted correctly:
+
+```bash
+bun run format:check
+```
+
+Automatically format all files:
+
+```bash
+bun run format
+```
+
+### Recommended Workflow
+
+Before committing changes, lint, format, and run tests.

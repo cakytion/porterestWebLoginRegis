@@ -13,7 +13,7 @@ export default defineConfig([
   // define different rules for different parts of the software
   // frontend components
   {
-    files: ["src/**/*.{js,jsx}"],
+    files: ["frontend/src/**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -46,7 +46,7 @@ export default defineConfig([
 
   // backend
   {
-    files: ["src/server.js"],
+    files: ["backend/src/server.js"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.node,
@@ -64,7 +64,7 @@ export default defineConfig([
 
   // test files
   {
-    files: ["tests/**/*.{js,jsx}"],
+    files: ["frontend/tests/**/*.{js,jsx}", "backend/tests/**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: {

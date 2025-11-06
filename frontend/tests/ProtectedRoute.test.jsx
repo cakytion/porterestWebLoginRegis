@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import ProtectedRoute from "../../src/ProtectedRoute";
-import { useAuth } from "../../src/AuthContext";
+import ProtectedRoute from "../src/ProtectedRoute";
+import { useAuth } from "../src/AuthContext";
 
 // mock '../../src/AuthContext' module to give a mock function useAuth
-vi.mock("../../src/AuthContext", () => ({
+vi.mock("../src/AuthContext", () => ({
   useAuth: vi.fn(),
 }));
 

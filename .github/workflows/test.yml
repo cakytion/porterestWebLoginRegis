@@ -24,10 +24,10 @@ jobs:
       - uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: cd porterest && bun install
+        run: bun install
 
       - name: Run tests
-        run: cd porterest && bun run test
+        run: bun run test
 
       - name: Build
-        run: cd porterest && bun run build
+        run: bun run build

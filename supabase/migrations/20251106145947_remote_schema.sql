@@ -400,3 +400,6 @@ ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TAB
 
 
 
+drop extension if exists "pg_net";
+
+

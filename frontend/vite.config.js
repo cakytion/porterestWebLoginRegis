@@ -21,9 +21,9 @@ export default defineConfig({
     watch: false,
     globals: true,
     environment: "jsdom",
-    setupFiles: "tests/frontend/setup.js",
+    setupFiles: "tests/setup.js",
     include: [
-      "tests/frontend/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
+      "tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
     ],
   },
 });

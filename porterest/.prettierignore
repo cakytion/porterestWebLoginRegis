@@ -1,9 +1,0 @@
-node_modules/
-dist/
-build/
-.vite/
-bun.lock
-*.lock
-.git/
-.env
-.env.local

@@ -1,6 +1,6 @@
 import { describe, it, expect, mock } from "bun:test";
 import { treaty } from "@elysiajs/eden";
-import { app } from "../../src/server";
+import { app } from "../src/server";
 import { supabase } from "./setup";
 
 // see https://elysiajs.com/patterns/unit-test

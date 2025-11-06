@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import FinishSignup from "../../src/FinishSignup";
+import FinishSignup from "../src/FinishSignup";
 
 describe("FinishSignup", () => {
   // before each test

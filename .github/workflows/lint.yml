@@ -14,10 +14,10 @@ jobs:
       - uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: cd porterest && bun install
+        run: bun install
 
       - name: Run ESLint
-        run: cd porterest && bun run lint
+        run: bun run lint
 
       - name: Check Prettier formatting
-        run: cd porterest && bun run format:check
+        run: bun run format:check

@@ -243,5 +243,113 @@ export function setupAuthRoutes(app) {
           },
         }
       )
+      // POST endpoint for email/password registration
+      .post(
+        "/api/register/email",
+        async ({ body, cookie, set, session_jwt }) => {
+          try {
+            // get inputs from frontend
+            const { email, password, full_name, role } = body;
+
+            // validate inputs
+            if (!email || !password || !full_name || !role) {
+              set.status = 400;
+              return "Missing required fields";
+            }
+
+            // email validation
+            // ^...$ = the whole string must be the email
+            // [^\s@]+ = matches one or more characters that are not whitespace or @
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              set.status = 400;
+              return "Invalid email format";
+            }
+
+            // password validation, simple for now
+            if (password.length < 6) {
+              set.status = 400;
+              return "Password must be at least 6 characters";
+            }
+
+            // validate role
+            if (role !== "student" && role !== "viewer") {
+              set.status = 400;
+              return "Invalid role selected";
+            }
+
+            // hash the password via Bun using Argon2id algorithm (see https://bun.com/docs/guides/util/hash-a-password)
+            const passwordHash = await Bun.password.hash(password);
+
+            // create user profile in db
+            const { data: newUser, error: newUserError } = await supabase
+              .from("users")
+              .insert({
+                email: email,
+                full_name: full_name,
+                role: role,
+              })
+              .select()
+              .single();
+
+            // check if it's a duplicate email
+            if (newUserError) {
+              if (newUserError.code === "23505") {
+                // see https://www.postgresql.org/docs/current/errcodes-appendix.html
+                set.status = 400;
+                return "Email already registered";
+              }
+              console.error("error creating user:", newUserError);
+              set.status = 500;
+              return "Database error during user creation";
+            }
+
+            // create new auth identity for email provider
+            const { error: newIdentityError } = await supabase.from("auth_identities").insert({
+              user_id: newUser.id,
+              provider: "email",
+              provider_id: email,
+              password_hash: passwordHash,
+            });
+
+            if (newIdentityError) {
+              console.error("error creating identity:", newIdentityError);
+              set.status = 500;
+              return "Database error during identity creation";
+            }
+
+            // create session jwt for the new user
+            const sessionToken = await session_jwt.sign({
+              userId: newUser.id,
+              role: newUser.role,
+            });
+
+            // save to cookie
+            cookie.session_token.set({
+              value: sessionToken,
+              httpOnly: true,
+              path: "/",
+              sameSite: "lax",
+              secure: process.env.NODE_ENV === "production",
+            });
+
+            console.log("New user registered:", email);
+
+            return { status: "success" };
+          } catch (e) {
+            console.error("Registration error:", e);
+            set.status = 500;
+            return "An unexpected error occurred";
+          }
+        },
+        {
+          detail: {
+            summary: "Register with Email and Password",
+            description:
+              "Creates a new user account with email and password, automatically logs them in, and creates a session",
+            tags: ["Auth"],
+          },
+        }
+      )
   );
 }

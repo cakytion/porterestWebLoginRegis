@@ -2,11 +2,33 @@ import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { cookie } from "@elysiajs/cookie";
 import { jwt } from "@elysiajs/jwt";
+import { openapi } from "@elysiajs/openapi";
 import { jwtConfig } from "./config/index.js";
 import { setupAuthRoutes } from "./routes/auth.js";
 import { setupUserRoutes } from "./routes/user.js";
 
-export const app = new Elysia()
+export const app = new Elysia();
+
+// enable OpenAPI docs in development only
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    openapi({
+      documentation: {
+        info: {
+          title: "Porterest API",
+          version: "1.0.0",
+          description: "API for Porterest",
+        },
+        tags: [
+          { name: "Auth", description: "Authentication endpoints" },
+          { name: "User", description: "User-related endpoints" },
+        ],
+      },
+    })
+  );
+}
+
+app
   .use(
     // cors to allow frontend
     cors({

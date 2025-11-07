@@ -351,5 +351,75 @@ export function setupAuthRoutes(app) {
           },
         }
       )
+      // POST endpoint for email/password login
+      .post(
+        "/api/login/email",
+        async ({ body, cookie, set, session_jwt }) => {
+          try {
+            // get inputs from frontend
+            const { email, password } = body;
+
+            // validate inputs
+            if (!email || !password) {
+              set.status = 400;
+              return "Missing required fields";
+            }
+
+            // query auth_identities table for email provider with this email
+            const { data: identity, error: identityError } = await supabase
+              .from("auth_identities")
+              .select("*, users(*)") // get identity + joined user data
+              .eq("provider", "email")
+              .eq("provider_id", email)
+              .single();
+
+            // if doesn't exist, then deny with invalid credentials
+            if (identityError || !identity) {
+              set.status = 401;
+              return "Invalid credentials";
+            }
+
+            // verify password hash
+            const passwordMatch = await Bun.password.verify(password, identity.password_hash);
+            if (!passwordMatch) {
+              set.status = 401;
+              return "Invalid credentials";
+            }
+
+            const user = identity.users;
+
+            // create session jwt for the user
+            const sessionToken = await session_jwt.sign({
+              userId: user.id,
+              role: user.role,
+            });
+
+            // save to cookie
+            cookie.session_token.set({
+              value: sessionToken,
+              httpOnly: true,
+              path: "/",
+              sameSite: "lax",
+              secure: process.env.NODE_ENV === "production",
+            });
+
+            console.log("User logged in:", email);
+
+            return { status: "success" };
+          } catch (e) {
+            console.error("Login error:", e);
+            set.status = 500;
+            return "An unexpected error occurred";
+          }
+        },
+        {
+          detail: {
+            summary: "Login with Email and Password",
+            description:
+              "Authenticates user with email and password, creates a session if credentials are valid",
+            tags: ["Auth"],
+          },
+        }
+      )
   );
 }

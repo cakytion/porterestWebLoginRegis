@@ -1,0 +1,32 @@
+{
+  "name": "porterest",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "bun run --workspaces dev",
+    "dev:frontend": "bun run --filter=frontend dev",
+    "dev:backend": "bun run --filter=backend dev",
+    "build": "bun run --filter=frontend build",
+    "preview": "bun run --filter=frontend preview",
+    "test": "bun run --workspaces test",
+    "lint": "bun run --workspaces lint",
+    "lint:fix": "bun run --workspaces lint:fix",
+    "format": "bun run --workspaces format",
+    "format:check": "bun run --workspaces format:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
+    "supabase": "^2.54.11"
+  }
+}

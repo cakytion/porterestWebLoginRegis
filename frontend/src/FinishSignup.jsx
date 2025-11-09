@@ -36,18 +36,12 @@ export default function FinishSignup() {
     <div className={styles["finish-signup-page"]}>
       <div className={styles["finish-signup-box"]}>
         <h2 className={styles["title"]}>One Last Step</h2>
-        <p className={styles["subtitle"]}>
-          Please select your role to complete your profile.
-        </p>
+        <p className={styles["subtitle"]}>Please select your role to complete your profile.</p>
 
         <form className={styles["form"]} onSubmit={handleSubmit}>
           <div className={styles["field"]}>
             <label htmlFor="role-select">I am a...</label>
-            <select
-              id="role-select"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
+            <select id="role-select" value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="student">Student</option>
               <option value="viewer">Viewer</option>
             </select>

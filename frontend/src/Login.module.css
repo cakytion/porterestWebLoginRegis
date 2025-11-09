@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background: #f9fafb;
 }
 
@@ -50,27 +50,25 @@ body {
 
 /* Masonry layout */
 .image-grid {
-  column-count: 3;        /* จำนวนคอลัมน์ (เพิ่ม/ลดได้) */
-  column-gap: 12px;       /* ระยะห่างระหว่างคอลัมน์ */
+  column-count: 3; /* จำนวนคอลัมน์ (เพิ่ม/ลดได้) */
+  column-gap: 12px; /* ระยะห่างระหว่างคอลัมน์ */
   height: 100%;
-  overflow-y: auto;       /* เลื่อนขึ้นลง */
-  overflow-x: auto;       /* เลื่อนซ้ายขวา */
+  overflow-y: auto; /* เลื่อนขึ้นลง */
+  overflow-x: auto; /* เลื่อนซ้ายขวา */
   padding: 10px;
 }
 
 .img-box {
-  margin-bottom: 12px;    /* เว้นระยะห่างแนวตั้ง */
-  break-inside: avoid;    /* ไม่ให้ภาพโดนตัดครึ่ง */
+  margin-bottom: 12px; /* เว้นระยะห่างแนวตั้ง */
+  break-inside: avoid; /* ไม่ให้ภาพโดนตัดครึ่ง */
 }
 
 .img-box img {
-  width: 100%;            /* ให้เต็มคอลัมน์ */
+  width: 100%; /* ให้เต็มคอลัมน์ */
   border-radius: 12px;
   display: block;
   object-fit: cover;
 }
-
-
 
 /* Right side */
 .login-right {
@@ -88,7 +86,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(255,105,180,0.6), transparent 80%);
+  background: radial-gradient(circle at center, rgba(255, 105, 180, 0.6), transparent 80%);
   filter: blur(200px);
   z-index: 0;
 }
@@ -97,7 +95,7 @@ body {
   background: white;
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 350px;
   position: relative;
   z-index: 1;
@@ -108,6 +106,16 @@ body {
   margin: 0 0 20px;
   font-size: 22px;
   font-weight: 700;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border: 1px solid #fcc;
 }
 
 /* Form */

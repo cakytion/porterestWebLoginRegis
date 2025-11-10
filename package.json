@@ -12,6 +12,7 @@
     "dev:backend": "bun run --filter=backend dev",
     "build": "bun run --filter=frontend build",
     "preview": "bun run --filter=frontend preview",
+    "email:preview": "bun run --filter=backend --elide-lines=0 email:preview",
     "test": "bun run --workspaces test",
     "lint": "bun run --workspaces lint",
     "lint:fix": "bun run --workspaces lint:fix",

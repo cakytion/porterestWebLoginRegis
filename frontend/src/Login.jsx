@@ -141,9 +141,9 @@ export default function Login() {
                 disabled={loading}
               />
             </div>
-            <a href="#" className={styles["forgot"]}>
+            <Link to="/forgot-password" className={styles["forgot"]}>
               Forgot password?
-            </a>
+            </Link>
             <button type="submit" className={styles["btn-primary"]} disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>

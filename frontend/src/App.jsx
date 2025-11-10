@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 import FinishSignup from "./FinishSignup";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
@@ -18,6 +20,10 @@ export default function App() {
 
         {/* หน้า register */}
         <Route path="/register" element={<Register />} />
+
+        {/* password reset pages */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* page for new google users to select role */}
         {/* we might have to deal with some kind of routing for this page too in the future */}

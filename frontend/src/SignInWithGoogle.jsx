@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 export default function SignInWithGoogle() {
   async function handleGoogle() {
     try {
       // Ask backend for an auth URL (backend should set state/code_verifier cookie)
-      const res = await fetch('/auth/google', { method: 'GET', credentials: 'include' });
+      const res = await fetch("/auth/google", { method: "GET", credentials: "include" });
 
       // backend may redirect directly or return a JSON { url: '...' }
       if (res.redirected) {
@@ -17,11 +17,11 @@ export default function SignInWithGoogle() {
         return;
       }
 
-      console.error('Unexpected response from /auth/google', res.status, json);
-      alert('Unable to start Google sign-in.');
+      console.error("Unexpected response from /auth/google", res.status, json);
+      alert("Unable to start Google sign-in.");
     } catch (err) {
-      console.error('Google signin error', err);
-      alert('Network error while starting Google sign-in.');
+      console.error("Google signin error", err);
+      alert("Network error while starting Google sign-in.");
     }
   }
 
@@ -31,4 +31,3 @@ export default function SignInWithGoogle() {
     </button>
   );
 }
-

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bunx kill-port 5173 && vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
@@ -26,3 +26,4 @@
     "vitest": "^4.0.5"
   }
 }
+

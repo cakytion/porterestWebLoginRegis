@@ -1,5 +1,8 @@
 import { generateState, generateCodeVerifier } from "arctic";
 import { supabase, google } from "../config/index.js";
+import { sendEmail } from "../services/email.service.js";
+import { PasswordReset } from "../templates/emails/PasswordReset.jsx";
+import { randomBytes } from "crypto";
 
 export function setupAuthRoutes(app) {
   return (
@@ -417,6 +420,171 @@ export function setupAuthRoutes(app) {
             summary: "Login with Email and Password",
             description:
               "Authenticates user with email and password, creates a session if credentials are valid",
+            tags: ["Auth"],
+          },
+        }
+      )
+      // POST endpoint for password reset request
+      .post(
+        "/api/password-reset/request",
+        async ({ body, set }) => {
+          try {
+            const { email } = body;
+
+            // validate input
+            if (!email) {
+              set.status = 400;
+              return "Missing email";
+            }
+
+            // check if user exists with this email
+            const { data: identity, error: identityError } = await supabase
+              .from("auth_identities")
+              .select("*, users(*)")
+              .eq("provider", "email")
+              .eq("provider_id", email)
+              .single();
+
+            // returns generic response for error
+            if (identityError || !identity) {
+              return { status: "success", message: "The reset link has been sent" };
+            }
+
+            const user = identity.users;
+
+            // generate random token
+            const token = randomBytes(32).toString("hex");
+
+            // calculate time for expiry
+            // 15 minutes
+            const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+            // save token to database
+            const { error: tokenError } = await supabase.from("password_reset_tokens").insert({
+              user_id: user.id,
+              token: token,
+              expires_at: expiresAt,
+            });
+
+            if (tokenError) {
+              console.error("error saving reset token:", tokenError);
+              return { status: "success", message: "The reset link has been sent" };
+            }
+
+            // build reset link
+            const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+
+            // send the email
+            const emailResult = await sendEmail(
+              PasswordReset,
+              { userName: user.full_name || "User", resetLink: resetLink },
+              user.email,
+              "Reset your Porterest password"
+            );
+
+            if (!emailResult.success) {
+              console.error("failed to send reset email:", emailResult.error);
+            }
+
+            // return generic response
+            return { status: "success", message: "The reset link has been sent" };
+          } catch (e) {
+            console.error("password reset request error:", e);
+            set.status = 500;
+            return "An unexpected error occurred";
+          }
+        },
+        {
+          detail: {
+            summary: "Request Password Reset",
+            description:
+              "Sends a password reset email to the specified email address if it exists in the system",
+            tags: ["Auth"],
+          },
+        }
+      )
+      // POST endpoint for confirming password reset
+      .post(
+        "/api/password-reset/confirm",
+        async ({ body, set }) => {
+          try {
+            const { token, newPassword } = body;
+
+            // validate inputs
+            if (!token || !newPassword) {
+              set.status = 400;
+              return "Missing required fields";
+            }
+
+            // validate password
+            if (newPassword.length < 6) {
+              set.status = 400;
+              return "Password must be at least 6 characters";
+            }
+
+            // find token in database
+            const { data: resetRecord, error: tokenError } = await supabase
+              .from("password_reset_tokens")
+              .select("*, users(*)")
+              .eq("token", token)
+              .single();
+
+            // check if token exists and isn't expired
+            if (tokenError || !resetRecord) {
+              set.status = 400;
+              return "Invalid or expired reset token";
+            }
+
+            const now = new Date();
+            const expiresAt = new Date(resetRecord.expires_at);
+
+            if (now > expiresAt) {
+              set.status = 400;
+              return "Reset token has expired";
+            }
+
+            const user = resetRecord.users;
+
+            // hash new password
+            const passwordHash = await Bun.password.hash(newPassword);
+
+            // update password in auth_identities
+            const { error: updateError } = await supabase
+              .from("auth_identities")
+              .update({ password_hash: passwordHash })
+              .eq("user_id", user.id)
+              .eq("provider", "email");
+
+            if (updateError) {
+              console.error("error updating password:", updateError);
+              set.status = 500;
+              return "Database error during password update";
+            }
+
+            // delete the reset token
+            const { error: deleteError } = await supabase
+              .from("password_reset_tokens")
+              .delete()
+              .eq("id", resetRecord.id);
+
+            if (deleteError) {
+              console.error("error deleting reset token:", deleteError);
+            }
+
+            console.log("Password reset for user:", user.email);
+
+            return { status: "success", message: "Password reset successfully" };
+          } catch (e) {
+            console.error("password reset confirm error:", e);
+            set.status = 500;
+            return "An unexpected error occurred";
+          }
+        },
+        {
+          detail: {
+            summary: "Confirm Password Reset",
+            description:
+              "Validates the reset token and updates the user's password if the token is valid and not expired",
             tags: ["Auth"],
           },
         }

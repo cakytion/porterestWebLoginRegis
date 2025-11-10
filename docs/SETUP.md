@@ -27,6 +27,8 @@ Before running the application, you must set up your environment variables. Thes
    - Supabase environment variables can be obtained from the Supabase setup section below.
    - For Google secrets, you can set up your own projects or contact the owner of this project.
    - `JWT_SECRET` can be generated from a password manager or be a random string.
+   - `RESEND_API_KEY` can be obtained from the [Resend dashboard](https://resend.com/api-keys).
+   - `EMAIL_FROM` should be set to `onboarding@resend.dev` for development, and the app's domain for production.
 
 ### Frontend Environment Variables
 
@@ -108,6 +110,16 @@ bun dev:frontend
 bun dev:backend
 ```
 
+## Previewing Email Templates
+
+To preview React email templates during development:
+
+```bash
+bun run email:preview
+```
+
+This opens the preview server at `http://localhost:3000`.
+
 ## Troubleshooting
 
 ### Supabase Command Not Found
@@ -118,3 +130,7 @@ If `bunx supabase start` fails with `error: could not determine executable to ru
 rm -rf node_modules frontend/node_modules backend/node_modules bun.lock
 bun install
 ```
+
+### Ports are Occupied
+
+There might be an issue with monorepo workspaces for the `bun run` command. See [this](https://github.com/oven-sh/bun/issues/18605) and [this](https://github.com/oven-sh/bun/issues/20319). For now, you can use the `bunx kill-port <port>` command to kill the running process on the occupied port to free it. You can also add the command to the frontend/backend `package.json` files.

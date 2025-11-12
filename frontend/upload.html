@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Portfolio</title>
+</head>
+<body>
+
+    <h2>Upload Your Portfolio</h2>
+    
+    <form id="upload-form" enctype="multipart/form-data">
+        
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <br>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <br>
+        <div>
+            <label for="images">Images:</label>
+            <input type="file" id="images" name="images" multiple accept="image/*">
+        </div>
+        <br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h3 id="success-message" style="display:none; color:green;">
+        อัปโหลดผลงานสำเร็จ!
+    </h3>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', async (e) => {
+            // 1. หยุดไม่ให้ฟอร์มรีเฟรชหน้า
+            e.preventDefault(); 
+
+            // 2. สร้าง "กล่อง" (FormData) เพื่อห่อข้อมูลทั้งหมด (รวมไฟล์)
+            const formData = new FormData(form);
+
+            try {
+                // 3. ยิง "กล่อง" นี้ไปที่หลังบ้าน
+                const response = await fetch('/api/portfolios', {
+                    method: 'POST',
+                    body: formData 
+                    // (ไม่ต้องใส่ Header อะไรเลย, browser จัดการให้เอง)
+                });
+
+                if (response.ok) {
+                    // (AC4) ถ้าสำเร็จ โชว์ข้อความ
+                    successMessage.style.display = 'block';
+                    form.reset(); 
+                } else {
+                    alert('อัปโหลดไม่สำเร็จ กรุณาลองใหม่');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
+        });
+    </script>
+
+</body>
+</html>

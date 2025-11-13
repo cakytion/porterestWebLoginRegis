@@ -39,7 +39,7 @@ porterest-repository/
 
 ## Documentation
 
-- [Setup Guide](docs/SETUP.md) - Set up your development environment
-- [Architecture](docs/ARCHITECTURE.md) - Codebase structure overview
-- [Package Management](docs/PACKAGE_MANAGEMENT.md) - Adding and managing dependencies
+- [Setup Guide](docs/setup.md) - Set up your development environment
+- [Architecture](docs/architecture.md) - Codebase structure overview
+- [Package Management](docs/package-management.md) - Adding and managing dependencies
 - [Contributing](docs/CONTRIBUTING.md) - Testing, code quality, and workflow

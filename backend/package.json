@@ -1,33 +1,35 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "bun src/server.js",
-    "email:preview": "bunx kill-port 3000 && email dev --dir ./src/templates/emails",
-    "test": "bun test --preload ./tests/setup.js ./tests/",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "dependencies": {
-    "@elysiajs/cookie": "^0.8.0",
-    "@elysiajs/cors": "^1.4.0",
-    "@elysiajs/jwt": "^1.4.0",
-    "@elysiajs/openapi": "^1.4.11",
-    "@react-email/components": "^1.0.0",
-    "@supabase/supabase-js": "^2.75.0",
-    "arctic": "^3.7.0",
-    "elysia": "^1.4.10",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "resend": "^6.4.2"
-  },
-  "devDependencies": {
-    "@elysiajs/eden": "^1.4.4",
-    "@react-email/preview-server": "^5.0.1",
-    "dotenv": "^17.2.3",
-    "react-email": "^5.0.1"
-  }
+"name": "porterest-backend",
+"version": "1.0.0",
+"type": "module",
+"scripts": {
+"dev": "tsx src/index.ts",
+"email:preview": "bunx kill-port 3000 && email dev --dir ./src/templates/emails",
+"test": "bun test --preload ./tests/setup.js ./tests/",
+"lint": "eslint .",
+"lint:fix": "eslint . --fix",
+"format": "prettier --write .",
+"format:check": "prettier --check ."
+},
+"dependencies": {
+"elysia": "^1.4.10",
+"@supabase/supabase-js": "^2.75.0",
+"@elysiajs/cookie": "^0.8.0",
+"@elysiajs/cors": "^1.4.0",
+"@elysiajs/jwt": "^1.4.0",
+"@elysiajs/openapi": "^1.4.11",
+"@react-email/components": "^1.0.0",
+"arctic": "^3.7.0",
+"react": "^19.2.0",
+"react-dom": "^19.2.0",
+"resend": "^6.4.2"
+},
+"devDependencies": {
+"@elysiajs/eden": "^1.4.4",
+"@react-email/preview-server": "^5.0.1",
+"dotenv": "^17.2.3",
+"react-email": "^5.0.1",
+"tsx": "^4.0.0"
 }
+}
+

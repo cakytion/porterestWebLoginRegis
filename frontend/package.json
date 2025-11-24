@@ -1,30 +1,30 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-  "start": "vite",
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "test": "vitest",
-  "lint": "eslint src tests",
-  "lint:fix": "eslint src tests --fix",
-  "format": "prettier --write src tests",
-  "format:check": "prettier --check src tests"
+"type": "module",
+"scripts": {
+"start": "vite",
+"dev": "vite",
+"build": "vite build",
+"preview": "vite preview",
+"test": "vitest",
+"lint": "eslint src tests",
+"lint": "eslint src tests --fix",
+"format": "prettier --write src tests",
+"format": "prettier --check src tests"
 },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^7.9.3"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "jsdom": "^27.0.1",
-    "vite": "^4.0.0",
-    "vitest": "^4.0.5"
-  }
+"dependencies": {
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-router-dom": "^7.9.3",
+"axios": "^1.6.0"
+},
+"devDependencies": {
+"@testing-library/jest-dom": "^6.9.1",
+"@testing-library/react": "^16.3.0",
+"@vitejs/plugin-react": "^4.0.0",
+"jsdom": "^27.0.1",
+"vite": "^4.0.0",
+"vitest": "^4.0.5"
 }
-
+}

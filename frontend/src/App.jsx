@@ -7,12 +7,16 @@ import ResetPassword from "./ResetPassword";
 import FinishSignup from "./FinishSignup";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import EditPortfolio from "./EditPortfolio";
 
 export default function App() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
   return (
     <Router>
       <Routes>
-        {/* ให้เข้า /login เป็นหน้าแรก */}
+        {/* หน้าแรก */}
         <Route path="/" element={<Navigate to="/login" />} />
 
         {/* หน้า login */}
@@ -26,7 +30,6 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* page for new google users to select role */}
-        {/* we might have to deal with some kind of routing for this page too in the future */}
         <Route path="/finish-signup" element={<FinishSignup />} />
 
         {/* a protected route for the dashboard */}
@@ -38,7 +41,12 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* เพิ่ม route สำหรับแก้ไข portfolio */}
+        <Route path="/edit-portfolio" element={<EditPortfolio id={id} />} />
       </Routes>
     </Router>
   );
 }
+
+

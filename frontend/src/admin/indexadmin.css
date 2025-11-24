@@ -1,0 +1,85 @@
+.admin-page { padding: 24px; }
+.title { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+.top-row { margin-bottom: 12px; }
+
+.content-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.left-pane, .right-pane { min-height: 400px; }
+
+.card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 10px 8px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+.table th { text-align: left; color: #64748b; font-weight: 600; }
+
+.btn { padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #f8fafc; cursor: pointer; }
+.btn-sm { padding: 6px 10px; font-size: 12px; }
+.btn-primary { background: #111827; color: #fff; border-color: #111827; }
+
+.searchbar { display: flex; gap: 8px; }
+.searchbar input { flex: 1; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 999px; }
+
+.pager { margin-top: 12px; display: flex; align-items: center; gap: 12px; }
+
+.edit-card label { display:block; margin-top: 10px; font-size: 12px; color:#6b7280; }
+.edit-card input, .edit-card select { width: 100%; padding: 10px; border: 1px solid #e5e7eb; border-radius: 12px; }
+.edit-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+.edit-card .actions { display:flex; gap: 12px; margin-top: 16px; }
+.placeholder { display:flex; align-items:center; justify-content:center; color:#9ca3af; min-height: 360px; }
+
+.tag { display:inline-block; padding: 4px 8px; border-radius: 999px; background:#f1f5f9; font-size: 12px; }
+.role-administrator { background:#eef2ff; }
+.role-student { background:#ecfeff; }
+.role-viewer { background:#fefce8; }
+.status-active { background:#dcfce7; }
+.status-deactivated { background:#fee2e2; }
+
+.avatar-circle { width: 48px; height: 48px; border-radius: 999px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; font-size:22px; margin: 0 auto 12px; }
+/* ===== Header แบบหน้า Login ===== */
+/* ให้ header เป็นแถบชมพูชั้นเดียว โค้งเฉพาะด้านล่าง */
+.admin-header {
+  width: 100%;
+  background: linear-gradient(90deg, #ff6aa2, #ff94bd);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 0 0 20px 20px;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.admin-brand {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ทำ title ให้อยู่กลางจอจริง ๆ */
+.admin-center-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ไว้บาลานซ์ด้านขวา (ทำเป็นกล่องว่าง ๆ) */
+.admin-header-right {
+  width: 36px;
+  height: 36px;
+  opacity: 0; /* ถ้าวันหลังจะใส่ปุ่ม logout ก็มาวางตรงนี้ */
+}
+

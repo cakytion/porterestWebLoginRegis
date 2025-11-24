@@ -7,6 +7,7 @@ import ResetPassword from "./ResetPassword";
 import FinishSignup from "./FinishSignup";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminDashboard from "./admin/AdminDashboard";
 
 export default function App() {
   return (
@@ -22,13 +23,11 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         {/* password reset pages */}
+        {/* password reset pages */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-
         {/* page for new google users to select role */}
-        {/* we might have to deal with some kind of routing for this page too in the future */}
         <Route path="/finish-signup" element={<FinishSignup />} />
-
         {/* a protected route for the dashboard */}
         <Route
           path="/dashboard"
@@ -38,6 +37,9 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* ⬇⬇⬇ เพิ่ม route หน้า Admin (เริ่มแบบไม่ล็อกก่อนเพื่อเทสเร็ว) */}
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

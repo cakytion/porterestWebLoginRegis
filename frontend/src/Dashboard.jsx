@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "./AuthContext";
 import styles from "./Dashboard.module.css";
+import { useNavigate } from "react-router-dom";
 
 // NOTE: all this is just a temporary dashboard for now
 // we'll need to handle role-based dashboard later too
@@ -8,6 +9,8 @@ import styles from "./Dashboard.module.css";
 export default function Dashboard() {
   // get user info and setter function from auth context
   const { user, setUser } = useAuth();
+
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
@@ -27,6 +30,14 @@ export default function Dashboard() {
     <div className={styles["dashboard-page"]}>
       <div className={styles["dashboard-header"]}>
         <h1>Dashboard</h1>
+        {user.role === 'administrator' && (
+              <button 
+                onClick={() => navigate('/admin')} // Change '/admin' to your actual route
+                className={styles["admin-btn"]}
+              >
+                Admin Panel
+              </button>
+            )}
         <button onClick={handleLogout} className={styles["logout-btn"]}>
           Logout
         </button>

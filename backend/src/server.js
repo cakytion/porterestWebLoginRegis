@@ -6,6 +6,7 @@ import { openapi } from "@elysiajs/openapi";
 import { jwtConfig } from "./config/index.js";
 import { setupAuthRoutes } from "./routes/auth.js";
 import { setupUserRoutes } from "./routes/user.js";
+import { setupPortfolioRoutes } from "./routes/portfolio.ts";
 
 export const app = new Elysia();
 
@@ -56,6 +57,7 @@ app
 
 setupAuthRoutes(app);
 setupUserRoutes(app);
+setupPortfolioRoutes(app);
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(8080);

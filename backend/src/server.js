@@ -6,7 +6,7 @@ import { openapi } from "@elysiajs/openapi";
 import { jwtConfig } from "./config/index.js";
 import { setupAuthRoutes } from "./routes/auth.js";
 import { setupUserRoutes } from "./routes/user.js";
-import { setupPortfolioRoutes } from "./routes/portfolio.ts";
+import { setupPortfolioRoutes } from "./routes/portfolio.js";
 
 export const app = new Elysia();
 

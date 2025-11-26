@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserPortfolios } from './api/portfolio';
+import { getPortfolio } from './api/portfolio';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.css'; // Import CSS Module

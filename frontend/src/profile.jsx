@@ -261,6 +261,14 @@ const avatarUrl =
   >
     Create Pin
   </button>
+  {user.role === 'administrator' && (
+              <Link to="/admin"
+                className={styles.btnPrimary}
+                type="button"
+              >
+                Admin Panel
+              </Link>
+            )}
 </div>
 
       </div>

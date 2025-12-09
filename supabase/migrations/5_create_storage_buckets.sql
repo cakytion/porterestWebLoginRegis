@@ -1,0 +1,2 @@
+-- This here should be a migration file for creating storage buckets but I am too lazy to do so.
+-- (Can't generate this automatically and I don't wanna do this manually yet.)

@@ -1,2 +1,4 @@
--- This here should be a migration file for creating storage buckets but I am too lazy to do so.
--- (Can't generate this automatically and I don't wanna do this manually yet.)
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('pins', 'pins', true);
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('avatars', 'avatars', true);

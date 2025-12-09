@@ -4,30 +4,40 @@ import SearchBar from "./SearchBar";
 import UserTable from "./UserTable";
 import UserEditPanel from "./UserEditPanel";
 import Pagination from "./Pagination";
+import Logo from "../assets/Logo.png"; 
 
-// ⬇⬇⬇ เพิ่มบรรทัดนี้ (ปรับ path ตามที่เก็บโลโก้จริง)
-// ถ้าไฟล์ AdminDashboard.jsx อยู่ที่ src/admin/ และ Logo.png อยู่ที่ src/assets/Logo.png
-// ใช้แบบนี้:
-import Logo from "../assets/Logo.png";
-// ถ้าโลโก้อยู่โฟลเดอร์เดียวกับ Login.jsx (src/) ใช้: import Logo from "../assets/Logo.png";
-// ถ้าเหมือนหน้า Login (./assets/Logo.png) อยู่ข้าง ๆ AdminDashboard.jsx ให้ใช้ path นั้นแทน
+// 1. Import your Supabase client
+import { supabase } from "../supabaseClient"; 
 
-// ===== Mock service...
-async function fetchUsers({ query = "", page = 1, pageSize = 10 }) {
-  const all = [
-    { id: 896723, email: "admin1@porterest.com", full_name: "Admin One", role: "administrator", status: "active" },
-    { id: 456868, email: "user1@testmail.com", full_name: "User One", role: "student", status: "active" },
-    { id: 848669, email: "lucky25565@gmail.com", full_name: 'Cipper "Cipper12"', role: "student", status: "active" },
-    { id: 165789, email: "user2@testmail.com", full_name: "User Two", role: "student", status: "active" },
-    { id: 987874, email: "user3@testmail.com", full_name: "User Three", role: "viewer", status: "active" },
-    { id: 234987, email: "user4@testmail.com", full_name: "User Four", role: "student", status: "deactivated" },
-    { id: 987758, email: "user5@testmail.com", full_name: "User Five", role: "student", status: "active"},
-  ];
-  const q = query.trim().toLowerCase();
-  const filtered = q ? all.filter(u => (u.email + u.full_name).toLowerCase().includes(q)) : all;
-  const start = (page - 1) * pageSize;
-  const data = filtered.slice(start, start + pageSize);
-  return { data, total: filtered.length, page, pageSize };
+// 2. Refactored Fetch Function
+async function fetchUsersFromSupabase({ query = "", page = 1, pageSize = 10 }) {
+  try {
+    // Calculate range for pagination (0-based index)
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    // Start building the query
+    let supabaseQuery = supabase
+      .from("users") // <--- MAKE SURE THIS MATCHES YOUR TABLE NAME
+      .select("*", { count: "exact" })
+      .range(from, to)
+      .order("id", { ascending: true });
+
+    // Apply search filter if query exists
+    if (query) {
+      // Searches both email and full_name (case-insensitive)
+      supabaseQuery = supabaseQuery.or(`email.ilike.%${query}%,full_name.ilike.%${query}%`);
+    }
+
+    const { data, count, error } = await supabaseQuery;
+
+    if (error) throw error;
+
+    return { data: data || [], total: count || 0 };
+  } catch (error) {
+    console.error("Error fetching users:", error.message);
+    return { data: [], total: 0 };
+  }
 }
 
 export default function AdminDashboard() {
@@ -39,21 +49,49 @@ export default function AdminDashboard() {
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Load Data
   async function load() {
     setLoading(true);
-    const { data, total } = await fetchUsers({ query, page, pageSize });
+    const { data, total } = await fetchUsersFromSupabase({ query, page, pageSize });
     setRows(data);
     setTotal(total);
     setLoading(false);
   }
 
+  // Reload when page changes
   useEffect(() => { load(); }, [page]);
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(total / pageSize)), [total, pageSize]);
 
+  // 3. New Save Handler (Updates Supabase)
+  const handleSave = async (updatedFields) => {
+    if (!selected) return;
+
+    try {
+      setLoading(true);
+      
+      const { error } = await supabase
+        .from("users")
+        .update(updatedFields)
+        .eq("id", selected.id);
+
+      if (error) throw error;
+
+      // Update success: refresh local data and close panel
+      await load(); 
+      setSelected(null);
+      alert("User updated successfully!");
+
+    } catch (error) {
+      console.error("Error updating user:", error.message);
+      alert("Failed to update user.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-      {/* ⬇⬇⬇ เพิ่มหัวแบบหน้า Login: แถบชมพู + โลโก้ซ้าย + ข้อความกลาง */}
       <div className="admin-header">
         <div className="admin-header-left">
           <img src={Logo} alt="logo" className="admin-logo" />
@@ -62,13 +100,16 @@ export default function AdminDashboard() {
         <h2 className="admin-center-title">Admin Dashboard</h2>
         <div className="admin-header-right" />
       </div>
-      {/* ⬆⬆⬆ จบส่วนที่เพิ่ม */}
 
       <div className="admin-page">
         <h1 className="title">User management</h1>
 
         <div className="top-row">
-          <SearchBar value={query} onChange={setQuery} onSearch={() => { setPage(1); load(); }} />
+          <SearchBar 
+            value={query} 
+            onChange={setQuery} 
+            onSearch={() => { setPage(1); load(); }} 
+          />
         </div>
 
         <div className="content-grid">
@@ -86,12 +127,7 @@ export default function AdminDashboard() {
             <UserEditPanel
               user={selected}
               onCancel={() => setSelected(null)}
-              onSave={(v) => {
-                if (!selected) return;
-                const updated = { ...selected, ...v };
-                setSelected(updated);
-                setRows(rs => rs.map(r => (r.id === updated.id ? updated : r)));
-              }}
+              onSave={handleSave} 
             />
           </div>
         </div>

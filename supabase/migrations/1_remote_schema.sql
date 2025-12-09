@@ -95,7 +95,8 @@ CREATE TABLE IF NOT EXISTS "public"."users" (
     "email" "text" NOT NULL,
     "full_name" "text",
     "avatar_url" "text",
-    "role" "public"."user_role" NOT NULL
+    "role" "public"."user_role" NOT NULL,
+    "status" "text" DEFAULT "Active" NOT NULL
 );
 
 
